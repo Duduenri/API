@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// model Viagem {
+//   id          Int         @id @default(autoincrement())
+//   destino     String      @db.VarChar(60)
+//   transporte  Transporte        
+//   dataSaida   DateTime    @default(now())
+//   preco       Decimal     @db.Decimal(10, 2)
+//   duracao     Int         @db.SmallInt
+//   hotel       String      @db.VarChar(60) @default("")
+//   estrelas    Int         @db.SmallInt @default(0)
+//   @@map("viagens")
+// }
+
+// enum Transporte {
+//   Terreste
+//   Aereo
+//   Maritimo
+// }
+
+model Hotel {
+  id        Int       @id @default(autoincrement())
+  nome      String    @db.VarChar(60)
+  cidade    String    @db.VarChar(60)
+  preco     Decimal   @db.Decimal(10, 2)  // Preço médio
+  estrelas  Int       @db.SmallInt
+  quartos   Int       @db.SmallInt        // Número de quartos disponíveis
+  categoria Categoria
+
+  @@map("hoteis") // Nome da tabela no banco de dados
+}
+
+enum Categoria {
+  Luxo
+  Economico
+  Resort
+  Pousada
+}
